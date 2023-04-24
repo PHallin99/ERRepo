@@ -13,6 +13,7 @@ class ENDLESSRUNNER_API AER_Factory : public AActor
 public:
 	// Sets default values for this actor's properties
 	AER_Factory();
+	void SpawnPlatform() const;
 	TArray<TObjectPtr<AActor>> SpawnedPlatforms;			// Array of spawned platforms
 
 protected:

@@ -1,25 +1,34 @@
-﻿
+﻿#include "ER_Factory.h"
+#include "Platform.h"
 
-
-#include "ER_Factory.h"
-
-
-// Sets default values
 AER_Factory::AER_Factory()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-// Called when the game starts or when spawned
 void AER_Factory::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SpawnPlatform();
 }
 
-// Called every frame
 void AER_Factory::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
+void AER_Factory::SpawnPlatform() const
+{
+	const FVector SpawnLocation(GetActorLocation());
+	const FVector SpawnRotation(0.f, 0.f, 0.f);
+	const FActorSpawnParameters SpawnParams;
+
+	if (AActor* SpawnedActor = GetWorld()->SpawnActor<APlatform>(APlatform::StaticClass(), SpawnLocation,
+	                                                             SpawnRotation.Rotation(), SpawnParams))
+	{
+		APlatform* SpawnedPlatform = Cast<APlatform>(SpawnedActor);
+		SpawnedPlatform->MovementDirection = FVector(0.f, -1.f, 0.f);
+		SpawnedPlatform->MovementSpeed = 10.f;
+	}
+}
