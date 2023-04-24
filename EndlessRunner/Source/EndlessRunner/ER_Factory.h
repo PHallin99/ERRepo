@@ -5,6 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "ER_Factory.generated.h"
 
+class APlatform;
+
 UCLASS()
 class ENDLESSRUNNER_API AER_Factory : public AActor
 {
@@ -13,12 +15,15 @@ class ENDLESSRUNNER_API AER_Factory : public AActor
 public:
 	// Sets default values for this actor's properties
 	AER_Factory();
-	void SpawnPlatform() const;
-	TArray<TObjectPtr<AActor>> SpawnedPlatforms;			// Array of spawned platforms
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+private:
+	TArray<APlatform*> SpawnedPlatforms;
+	void SpawnPlatform();
+	FTimerHandle PlatformSpawnTimer;
 
 public:
 	// Called every frame

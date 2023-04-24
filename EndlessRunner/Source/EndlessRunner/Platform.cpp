@@ -28,4 +28,10 @@ void APlatform::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	const FVector MovementOffset = MovementDirection * MovementSpeed * DeltaTime;
 	SetActorLocation(GetActorLocation() + MovementOffset);
+	if (GetActorLocation().Y > 100)
+	{
+		return;
+	}
+
+	Destroy();
 }
