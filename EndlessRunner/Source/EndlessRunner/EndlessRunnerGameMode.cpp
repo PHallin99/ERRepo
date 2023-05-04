@@ -40,10 +40,10 @@ void AEndlessRunnerGameMode::BeginPlay()
 
 	if (Player1 && Player2)
 	{
-		TObjectPtr<AERPlayerController> player1Controller = GetWorld()->SpawnActor<AERPlayerController>(
+		const TObjectPtr<AERPlayerController> player1Controller = GetWorld()->SpawnActor<AERPlayerController>(
 			AERPlayerController::StaticClass(), FVector::ZeroVector, SpawnRotation, SpawnParameters);
 
-		TObjectPtr<AERPlayerController> player2Controller = GetWorld()->SpawnActor<AERPlayerController>(
+		const TObjectPtr<AERPlayerController> player2Controller = GetWorld()->SpawnActor<AERPlayerController>(
 			AERPlayerController::StaticClass(), FVector::ZeroVector, SpawnRotation, SpawnParameters);
 
 		if (player1Controller && player2Controller)

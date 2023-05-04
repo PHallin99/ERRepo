@@ -32,8 +32,9 @@ void AER_Factory::SpawnPlatform()
 	                                                             SpawnParams))
 	{
 		APlatform* SpawnedPlatform = Cast<APlatform>(SpawnedActor);
+		SpawnedActor->SetActorScale3D(FVector(1.f, 4.f, 1.f));
 		SpawnedPlatform->MovementDirection = FVector(-1.f, 0.f, 0.f);
-		SpawnedPlatform->MovementSpeed = 100.f;
+		SpawnedPlatform->MovementSpeed = 500.f;
 		SpawnedPlatforms.Add(SpawnedPlatform);
 	}
 }
