@@ -21,14 +21,14 @@ void AER_Factory::Tick(float DeltaTime)
 
 void AER_Factory::SpawnPlatform()
 {
-	const FVector SpawnLocation(GetActorLocation());
+	const FVector SpawnLocation(3950, 1210, 140);
 	const FRotator SpawnRotation(GetActorRotation());
 	const FActorSpawnParameters SpawnParams;
 
 	if (AActor* SpawnedActor = GetWorld()->SpawnActor<APlatform>(APlatform::StaticClass(), SpawnLocation, SpawnRotation, SpawnParams))
 	{
 		APlatform* SpawnedPlatform = Cast<APlatform>(SpawnedActor);
-		SpawnedPlatform->MovementDirection = FVector(0.f, -1.f, 0.f);
+		SpawnedPlatform->MovementDirection = FVector(-1.f, 0.f, 0.f);
 		SpawnedPlatform->MovementSpeed = 20.f;
 		SpawnedPlatforms.Add(SpawnedPlatform);
 	}
