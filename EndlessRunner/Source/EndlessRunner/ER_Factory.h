@@ -22,8 +22,12 @@ protected:
 
 private:
 	TArray<APlatform*> SpawnedPlatforms;
+	TArray<FVector> SpawnLocations;
 	void SpawnPlatform();
 	FTimerHandle PlatformSpawnTimer;
+	FVector Spawn1;
+	FVector Spawn2;
+	FVector Spawn3;
 
 public:
 	// Called every frame
