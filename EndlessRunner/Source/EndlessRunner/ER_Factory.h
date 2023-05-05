@@ -20,7 +20,9 @@ public:
 	float PlatformMovementSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SpawnInterval;
+	float PlatformSpawnInterval;
+	
+	void Initialize(float MovementSpeed, float SpawnInterval);
 
 protected:
 	// Called when the game starts or when spawned

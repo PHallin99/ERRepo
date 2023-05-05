@@ -7,6 +7,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "EndlessRunnerGameMode.generated.h"
 
+class AER_Factory;
+
 UCLASS(minimalapi)
 class AEndlessRunnerGameMode : public AGameModeBase
 {
@@ -14,13 +16,16 @@ class AEndlessRunnerGameMode : public AGameModeBase
 
 protected:
 	void SetupCamera() const;
+	void SpawnPlayers();
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Players")
 	TObjectPtr<AEndlessRunnerCharacter>  Player1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Players")
 	TObjectPtr<AEndlessRunnerCharacter>  Player2;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<AER_Factory> PlatformFactory;
 
 public:
 	AEndlessRunnerGameMode();

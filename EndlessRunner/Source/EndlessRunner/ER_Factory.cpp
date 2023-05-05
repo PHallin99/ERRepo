@@ -9,11 +9,18 @@ AER_Factory::AER_Factory()
 	SpawnLocations.Add(FVector(3950, 1600, 140));
 }
 
+
+void AER_Factory::Initialize(float MovementSpeed, float SpawnInterval)
+{
+	PlatformMovementSpeed = MovementSpeed;
+	PlatformSpawnInterval = SpawnInterval;
+}
+
 void AER_Factory::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorldTimerManager().SetTimer(PlatformSpawnTimer, this, &AER_Factory::SpawnPlatform, SpawnInterval, true);
+	GetWorldTimerManager().SetTimer(PlatformSpawnTimer, this, &AER_Factory::SpawnPlatform, PlatformSpawnInterval, true);
 	SpawnPlatform();
 }
 
@@ -41,6 +48,6 @@ void AER_Factory::SpawnPlatform()
 	}
 
 	PlatformMovementSpeed *= 1.05f;
-	SpawnInterval *= 0.95f;
-	GetWorldTimerManager().SetTimer(PlatformSpawnTimer, this, &AER_Factory::SpawnPlatform, SpawnInterval, true);
+	PlatformSpawnInterval *= 0.95f;
+	GetWorldTimerManager().SetTimer(PlatformSpawnTimer, this, &AER_Factory::SpawnPlatform, PlatformSpawnInterval, true);
 }

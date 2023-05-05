@@ -1,8 +1,7 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #include "EndlessRunnerGameMode.h"
 #include "EndlessRunnerCharacter.h"
 #include "ERPlayerController.h"
+#include "ER_Factory.h"
 #include "GameCameraActor.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
@@ -20,11 +19,8 @@ void AEndlessRunnerGameMode::SetupCamera() const
 	CameraActor->SetActorLocation(FVector(90.f, 1160.f, 590.f));
 }
 
-void AEndlessRunnerGameMode::BeginPlay()
+void AEndlessRunnerGameMode::SpawnPlayers()
 {
-	Super::BeginPlay();
-	SetupCamera();
-
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
@@ -52,6 +48,18 @@ void AEndlessRunnerGameMode::BeginPlay()
 			player2Controller->Possess(Player2);
 		}
 	}
+}
+
+void AEndlessRunnerGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+	SetupCamera();
+	SpawnPlayers();
+
+	const FActorSpawnParameters SpawnParams;
+	PlatformFactory = GetWorld()->SpawnActor<AER_Factory>(AER_Factory::StaticClass(), FVector::ZeroVector,
+	                                                      FRotator::ZeroRotator, SpawnParams);
+	PlatformFactory->Initialize(500.f, 3.f);
 }
 
 AEndlessRunnerGameMode::AEndlessRunnerGameMode()
