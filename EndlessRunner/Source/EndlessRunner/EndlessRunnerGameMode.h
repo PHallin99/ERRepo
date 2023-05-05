@@ -13,7 +13,7 @@ class AEndlessRunnerGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 protected:
-	void SetupCamera();
+	void SetupCamera() const;
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Players")

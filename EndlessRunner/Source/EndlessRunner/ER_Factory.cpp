@@ -39,4 +39,8 @@ void AER_Factory::SpawnPlatform()
 		SpawnedPlatform->MovementSpeed = PlatformMovementSpeed;
 		SpawnedPlatforms.Add(SpawnedPlatform);
 	}
+
+	PlatformMovementSpeed *= 1.05f;
+	SpawnInterval *= 0.95f;
+	GetWorldTimerManager().SetTimer(PlatformSpawnTimer, this, &AER_Factory::SpawnPlatform, SpawnInterval, true);
 }

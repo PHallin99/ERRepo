@@ -7,7 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 
-void AEndlessRunnerGameMode::SetupCamera()
+void AEndlessRunnerGameMode::SetupCamera() const
 {
 	AGameCameraActor* CameraActor = Cast<AGameCameraActor>(
 		UGameplayStatics::GetActorOfClass(this, AGameCameraActor::StaticClass()));
@@ -59,7 +59,7 @@ AEndlessRunnerGameMode::AEndlessRunnerGameMode()
 	// set default pawn class to our Blueprinted character
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(
 		TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != NULL)
+	if (PlayerPawnBPClass.Class != nullptr)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
