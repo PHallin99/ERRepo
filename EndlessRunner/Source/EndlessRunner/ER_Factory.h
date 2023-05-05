@@ -16,6 +16,12 @@ public:
 	// Sets default values for this actor's properties
 	AER_Factory();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float PlatformMovementSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SpawnInterval;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -25,9 +31,6 @@ private:
 	TArray<FVector> SpawnLocations;
 	void SpawnPlatform();
 	FTimerHandle PlatformSpawnTimer;
-	FVector Spawn1;
-	FVector Spawn2;
-	FVector Spawn3;
 
 public:
 	// Called every frame
