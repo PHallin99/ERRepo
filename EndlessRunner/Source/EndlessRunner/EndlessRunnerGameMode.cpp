@@ -3,6 +3,7 @@
 #include "ERPlayerController.h"
 #include "ER_Factory.h"
 #include "GameCameraActor.h"
+#include "Platform.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -24,8 +25,8 @@ void AEndlessRunnerGameMode::SpawnPlayers()
 	FActorSpawnParameters SpawnParameters;
 	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
-	const FVector P1SpawnLocation = FVector(810, 1110, 140);
-	const FVector P2SpawnLocation = FVector(810, 1470, 140);
+	const FVector P1SpawnLocation = FVector(810, 800, 140);
+	const FVector P2SpawnLocation = FVector(810, 1600, 140);
 	const FRotator SpawnRotation = FRotator::ZeroRotator;
 
 	Player1 = GetWorld()->SpawnActor<AEndlessRunnerCharacter>(AEndlessRunnerCharacter::StaticClass(), P1SpawnLocation,
@@ -36,6 +37,9 @@ void AEndlessRunnerGameMode::SpawnPlayers()
 
 	if (Player1 && Player2)
 	{
+		Player1->SetLaneIndex(0);
+		Player2->SetLaneIndex(2);
+
 		const TObjectPtr<AERPlayerController> player1Controller = GetWorld()->SpawnActor<AERPlayerController>(
 			AERPlayerController::StaticClass(), FVector::ZeroVector, SpawnRotation, SpawnParameters);
 
@@ -59,7 +63,7 @@ void AEndlessRunnerGameMode::BeginPlay()
 	const FActorSpawnParameters SpawnParams;
 	PlatformFactory = GetWorld()->SpawnActor<AER_Factory>(AER_Factory::StaticClass(), FVector::ZeroVector,
 	                                                      FRotator::ZeroRotator, SpawnParams);
-	PlatformFactory->Initialize(500.f, 3.f);
+	PlatformFactory->ERGameMode = this;
 }
 
 AEndlessRunnerGameMode::AEndlessRunnerGameMode()
@@ -70,5 +74,30 @@ AEndlessRunnerGameMode::AEndlessRunnerGameMode()
 	if (PlayerPawnBPClass.Class != nullptr)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
+	}
+}
+
+void AEndlessRunnerGameMode::AddScore(int Score)
+{
+	SessionScore += Score;
+}
+
+void AEndlessRunnerGameMode::CheckCollision(APlatform* Platform)
+{
+	if (Player1->LaneIndex != Platform->LaneIndex && Player2->LaneIndex != Platform->LaneIndex)
+	{
+		return;
+	}
+
+	if (Player1->LaneIndex == Platform->LaneIndex)
+	{
+		// DEATH
+		UE_LOG(LogTemp, Display, TEXT("Player1 Death"))
+	}
+
+	if (Player2->LaneIndex == Platform->LaneIndex)
+	{
+		// DEATH
+		UE_LOG(LogTemp, Display, TEXT("Player2 Death"))
 	}
 }

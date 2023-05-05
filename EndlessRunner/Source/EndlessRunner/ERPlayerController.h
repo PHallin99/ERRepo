@@ -18,13 +18,6 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	virtual void SetupInputComponent() override;
-	void OnLeftPressed();
-	void OnLeftAPressed();
-	void OnRightPressed();
-	void OnRightDPressed();
-	void OnJumpPressed();
-	void OnJumpWPressed();
 
 public:
 	// Called every frame

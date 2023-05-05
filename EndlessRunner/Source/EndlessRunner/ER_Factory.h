@@ -1,10 +1,12 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "EndlessRunnerGameMode.h"
 #include "../../../../../../../../../Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/INCLUDE/memory"
 #include "GameFramework/Actor.h"
 #include "ER_Factory.generated.h"
 
+class AEndlessRunnerGameMode;
 class APlatform;
 
 UCLASS()
@@ -21,8 +23,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float PlatformSpawnInterval;
-	
-	void Initialize(float MovementSpeed, float SpawnInterval);
+
+	AEndlessRunnerGameMode* ERGameMode;
 
 protected:
 	// Called when the game starts or when spawned

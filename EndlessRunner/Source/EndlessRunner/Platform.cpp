@@ -1,5 +1,7 @@
 ﻿#include "Platform.h"
 
+#include "EndlessRunnerGameMode.h"
+
 APlatform::APlatform()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -18,6 +20,11 @@ APlatform::APlatform()
 	PlatformMesh->SetupAttachment(TransformComponent);
 }
 
+void APlatform::SetLaneIndex(int Index)
+{
+	LaneIndex = Index;
+}
+
 void APlatform::BeginPlay()
 {
 	Super::BeginPlay();
@@ -28,10 +35,20 @@ void APlatform::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	const FVector MovementOffset = MovementDirection * MovementSpeed * DeltaTime;
 	SetActorLocation(GetActorLocation() + MovementOffset);
+
+	if (GetActorLocation().X < 910 && GetActorLocation().X > 710)
+	{
+		EndlessRunnerGameMode->CheckCollision(this);
+	}
+
 	if (GetActorLocation().X > 500)
 	{
 		return;
 	}
 
+	if (EndlessRunnerGameMode)
+	{
+		EndlessRunnerGameMode->AddScore(1);
+	}
 	Destroy();
 }

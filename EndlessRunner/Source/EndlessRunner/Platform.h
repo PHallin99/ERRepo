@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "EndlessRunnerGameMode.h"
 #include "Platform.generated.h"
 
 UCLASS()
@@ -16,6 +17,11 @@ public:
 	APlatform();
 	FVector MovementDirection;
 	float MovementSpeed;
+	AEndlessRunnerGameMode* EndlessRunnerGameMode;
+	void SetLaneIndex(int Index);
+
+	UPROPERTY(EditAnywhere)
+	int LaneIndex;
 
 protected:
 	virtual void BeginPlay() override;
