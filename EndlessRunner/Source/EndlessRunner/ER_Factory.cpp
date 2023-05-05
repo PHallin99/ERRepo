@@ -23,6 +23,21 @@ void AER_Factory::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void AER_Factory::RemoveAll()
+{
+	for (auto Platform : SpawnedPlatforms)
+	{
+		if (Platform != nullptr)
+		{
+			Platform->Destroy();
+		}
+	}
+	SpawnedPlatforms.Empty();
+	PlatformMovementSpeed = 500.f;
+	PlatformSpawnInterval = 3.f;
+	GetWorldTimerManager().SetTimer(PlatformSpawnTimer, this, &AER_Factory::SpawnPlatform, PlatformSpawnInterval, true);
+}
+
 void AER_Factory::SpawnPlatform()
 {
 	const int Index = FMath::RandRange(0, 2);

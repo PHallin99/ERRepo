@@ -36,9 +36,10 @@ void APlatform::Tick(float DeltaTime)
 	const FVector MovementOffset = MovementDirection * MovementSpeed * DeltaTime;
 	SetActorLocation(GetActorLocation() + MovementOffset);
 
-	if (GetActorLocation().X < 910 && GetActorLocation().X > 710)
+	if (GetActorLocation().X < 910 && GetActorLocation().X > 710 && EndlessRunnerGameMode->CheckCollision(this))
 	{
-		EndlessRunnerGameMode->CheckCollision(this);
+		EndlessRunnerGameMode->RemoveLife();
+		Destroy();
 	}
 
 	if (GetActorLocation().X > 500)

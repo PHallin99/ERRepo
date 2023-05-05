@@ -18,6 +18,8 @@ class AEndlessRunnerGameMode : public AGameModeBase
 	UPROPERTY(EditAnywhere)
 	int SessionScore;
 
+	int LivesLeft;
+
 protected:
 	void SetupCamera() const;
 	void SpawnPlayers();
@@ -34,5 +36,6 @@ protected:
 public:
 	AEndlessRunnerGameMode();
 	void AddScore(int Score);
-	void CheckCollision(APlatform* Platform);
+	void RemoveLife();
+	bool CheckCollision(const APlatform* Platform) const;
 };

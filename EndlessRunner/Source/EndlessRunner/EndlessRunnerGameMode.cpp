@@ -82,22 +82,35 @@ void AEndlessRunnerGameMode::AddScore(int Score)
 	SessionScore += Score;
 }
 
-void AEndlessRunnerGameMode::CheckCollision(APlatform* Platform)
+void AEndlessRunnerGameMode::RemoveLife()
+{
+	PlatformFactory->RemoveAll();
+	LivesLeft--;
+	if (LivesLeft == 0)
+	{
+		// GAME OVER
+	}
+}
+
+bool AEndlessRunnerGameMode::CheckCollision(const APlatform* Platform) const
 {
 	if (Player1->LaneIndex != Platform->LaneIndex && Player2->LaneIndex != Platform->LaneIndex)
 	{
-		return;
+		return false;
 	}
 
 	if (Player1->LaneIndex == Platform->LaneIndex)
 	{
 		// DEATH
 		UE_LOG(LogTemp, Display, TEXT("Player1 Death"))
+		return true;
 	}
 
 	if (Player2->LaneIndex == Platform->LaneIndex)
 	{
 		// DEATH
 		UE_LOG(LogTemp, Display, TEXT("Player2 Death"))
+		return true;
 	}
+	return false;
 }
