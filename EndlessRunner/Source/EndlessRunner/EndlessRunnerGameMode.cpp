@@ -4,6 +4,7 @@
 #include "ER_Factory.h"
 #include "GameCameraActor.h"
 #include "Platform.h"
+#include "SaveSystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -68,13 +69,7 @@ void AEndlessRunnerGameMode::BeginPlay()
 
 AEndlessRunnerGameMode::AEndlessRunnerGameMode()
 {
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(
-		TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != nullptr)
-	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
+	LivesLeft = 3;
 }
 
 void AEndlessRunnerGameMode::AddScore(int Score)
@@ -86,9 +81,15 @@ void AEndlessRunnerGameMode::RemoveLife()
 {
 	PlatformFactory->RemoveAll();
 	LivesLeft--;
-	if (LivesLeft == 0)
+	if (LivesLeft <= 0)
 	{
-		// GAME OVER
+		// SAVE SESSION SCORE -> RESET SESSION SCORE INT
+		PlatformFactory->RemoveAll();
+		PlatformFactory->Stop();
+		if (SessionScore > USaveSystem::LoadScore())
+		{
+			USaveSystem::SaveScore(SessionScore);
+		}
 	}
 }
 

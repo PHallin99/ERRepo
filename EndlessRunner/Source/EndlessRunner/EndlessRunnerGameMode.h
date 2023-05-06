@@ -18,6 +18,7 @@ class AEndlessRunnerGameMode : public AGameModeBase
 	UPROPERTY(EditAnywhere)
 	int SessionScore;
 
+	UPROPERTY(EditAnywhere)
 	int LivesLeft;
 
 protected:

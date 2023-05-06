@@ -11,6 +11,11 @@ AER_Factory::AER_Factory()
 	PlatformSpawnInterval = 3.f;
 }
 
+void AER_Factory::Stop()
+{
+	GetWorldTimerManager().ClearTimer(PlatformSpawnTimer);
+}
+
 void AER_Factory::BeginPlay()
 {
 	Super::BeginPlay();
