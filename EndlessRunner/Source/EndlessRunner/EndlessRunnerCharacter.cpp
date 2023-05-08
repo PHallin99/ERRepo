@@ -2,6 +2,7 @@
 
 #include "EndlessRunnerCharacter.h"
 
+#include "EndlessRunnerGameMode.h"
 #include "Components/InputComponent.h"
 
 
@@ -30,6 +31,11 @@ void AEndlessRunnerCharacter::MoveRight()
 void AEndlessRunnerCharacter::OnParry()
 {
 	// Parry a platform if its close enough to the player - nuke the map of platforms and enemies
+	if (FMath::RandRange(0, 2) != 1)
+	{
+		return;
+	}
+	ERGameMode->ParryAttempt(LaneIndex);
 }
 
 void AEndlessRunnerCharacter::SetupCharacterActor()

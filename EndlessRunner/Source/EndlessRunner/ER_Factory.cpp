@@ -16,6 +16,29 @@ void AER_Factory::Stop()
 	GetWorldTimerManager().ClearTimer(PlatformSpawnTimer);
 }
 
+bool AER_Factory::TryParry(int LaneIndex)
+{
+	for (APlatform* Platform : SpawnedPlatforms)
+	{
+		if (!Platform)
+		{
+			SpawnedPlatforms.Remove(Platform);
+			return false;
+		}
+
+		if (Platform->LaneIndex != LaneIndex)
+		{
+			return false;
+		}
+
+		if (Platform->GetActorLocation().X < 1010 && Platform->GetActorLocation().X > 900)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void AER_Factory::BeginPlay()
 {
 	Super::BeginPlay();
@@ -38,9 +61,14 @@ void AER_Factory::RemoveAll()
 		}
 	}
 	SpawnedPlatforms.Empty();
-	PlatformMovementSpeed = 500.f;
-	PlatformSpawnInterval = 3.f;
-	GetWorldTimerManager().SetTimer(PlatformSpawnTimer, this, &AER_Factory::SpawnPlatform, PlatformSpawnInterval, true);
+
+	if (PlatformMovementSpeed > 1000)
+	{
+		PlatformMovementSpeed = 500.f;
+		PlatformSpawnInterval = 3.f;
+		GetWorldTimerManager().SetTimer(PlatformSpawnTimer, this, &AER_Factory::SpawnPlatform, PlatformSpawnInterval,
+		                                true);
+	}
 }
 
 void AER_Factory::SpawnPlatform()

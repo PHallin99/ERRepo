@@ -3,22 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
-#include "ERPlayerController.generated.h"
-
-class UInputMappingContext;
+#include "GameFramework/Actor.h"
+#include "LifeBox.generated.h"
 
 UCLASS()
-class ENDLESSRUNNER_API AERPlayerController : public APlayerController
+class ENDLESSRUNNER_API ALifeBox : public AActor
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AERPlayerController();
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UInputMappingContext* MappingContext;
+	ALifeBox();
+	UStaticMeshComponent* StaticMesh;
 
 protected:
 	// Called when the game starts or when spawned

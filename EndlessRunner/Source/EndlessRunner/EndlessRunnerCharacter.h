@@ -7,6 +7,8 @@
 #include "EndlessRunnerCharacter.generated.h"
 
 
+class AEndlessRunnerGameMode;
+
 UCLASS(config=Game)
 class AEndlessRunnerCharacter : public ACharacter
 {
@@ -34,6 +36,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	int LaneIndex;
+
+	AEndlessRunnerGameMode* ERGameMode;
 
 protected:
 	virtual void BeginPlay() override;

@@ -27,6 +27,7 @@ public:
 	AEndlessRunnerGameMode* ERGameMode;
 
 	void Stop();
+	bool TryParry(int LaneIndex);
 
 protected:
 	// Called when the game starts or when spawned

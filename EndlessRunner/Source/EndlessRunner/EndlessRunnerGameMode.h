@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EndlessRunnerCharacter.h"
+#include "LifeBox.h"
 #include "GameFramework/GameModeBase.h"
 #include "EndlessRunnerGameMode.generated.h"
 
@@ -21,15 +22,23 @@ class AEndlessRunnerGameMode : public AGameModeBase
 	UPROPERTY(EditAnywhere)
 	int LivesLeft;
 
+	UPROPERTY(EditAnywhere)
+	TArray<ALifeBox*> LivesBoxes;
+
+	AEndlessRunnerCharacter* Player1Spawned;
+	AEndlessRunnerCharacter* Player2Spawned;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<APlayerController> ERPlayerControllerBP;
+
 protected:
 	void SetupCamera() const;
 	void SpawnPlayers();
+	void SpawnFactory();
+	void SpawnLives();
+	void UpdateHighScoreUI() const;
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Players")
-	TObjectPtr<AEndlessRunnerCharacter> Player1;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Players")
-	TObjectPtr<AEndlessRunnerCharacter> Player2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<AER_Factory> PlatformFactory;
@@ -38,5 +47,9 @@ public:
 	AEndlessRunnerGameMode();
 	void AddScore(int Score);
 	void RemoveLife();
+	void ParryAttempt(int LaneIndex) const;
 	bool CheckCollision(const APlatform* Platform) const;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Players")
+	TSubclassOf<ACharacter> BPEndlessCharacter;
 };
