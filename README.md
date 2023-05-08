@@ -48,4 +48,6 @@ recognizes a collision and tells the platform factory to despawn all of the spaw
 adjusted back to the starting values again only to gradually increase until the player collides again.
 
 At this point in the project I haven't been able to get the Input working properly, the controller I spawn in possess the correct pawns and the input actions are setup
-but every time I build the project there is always an Assert failure with the PlayerInputComponent which I think is connected to why I can't get the input to work.
+but every time I build the project there is always an Assert failure with the PlayerInputComponent which I think is connected to why I can't get the input to work. I 
+have also been trying to get the enhanced input actiond and mappings to work but wasn't able to up to the deadline. Logic for every other feature required is in the 
+project and if having the Unreal input system fully working is needed for the course I can try and work for it more if I am able to get more time for the assignment. 
